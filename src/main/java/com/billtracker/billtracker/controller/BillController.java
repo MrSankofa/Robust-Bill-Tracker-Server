@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/bills")
 @CrossOrigin(origins = "https://localhost:5173")
 public class BillController {
   private final BillService billService;
