@@ -3,6 +3,8 @@ package com.billtracker.billtracker.auth;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -20,7 +22,8 @@ public class AuthController {
 
   @PostMapping("/login")
   public ResponseEntity<?> login(@RequestBody AuthRequest req) {
-    return ResponseEntity.ok(authService.login(req));
+    String token = authService.login(req);
+    return ResponseEntity.ok(Collections.singletonMap("token", token));
   }
 
   @GetMapping("/test")

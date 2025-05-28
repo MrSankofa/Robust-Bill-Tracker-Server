@@ -2,8 +2,10 @@ package com.billtracker.billtracker.controller;
 
 
 import com.billtracker.billtracker.model.Bill;
+import com.billtracker.billtracker.security.CustomUserDetails;
 import com.billtracker.billtracker.service.BillService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,7 +23,10 @@ public class BillController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Bill>> getAllBills(@RequestParam String userId) {
+  public ResponseEntity<?> getBills(Authentication authentication) {
+    CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+    String userId = userDetails.getUser().getId(); // or getUsername() depending on your structure
+
     List<Bill> bills = billService.getAllBills(userId);
 
     return ResponseEntity.ok(bills);
