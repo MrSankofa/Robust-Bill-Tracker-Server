@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bills")
-@CrossOrigin(origins = "https://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://localhost:5173"})
 public class BillController {
   private final BillService billService;
 
@@ -25,9 +25,9 @@ public class BillController {
   @GetMapping
   public ResponseEntity<?> getBills(Authentication authentication) {
     CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-    String userId = userDetails.getUser().getId(); // or getUsername() depending on your structure
+//    String userId = userDetails.getUser().getId(); // or getUsername() depending on your structure
 
-    List<Bill> bills = billService.getAllBills(userId);
+    List<Bill> bills = billService.getAllBills();
 
     return ResponseEntity.ok(bills);
   }

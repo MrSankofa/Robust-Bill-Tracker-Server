@@ -14,8 +14,8 @@ public class BillService {
     this.billRepository = billRepository;
   }
 
-  public List<Bill> getAllBills(String userId) {
-    return billRepository.findByUserId(userId);
+  public List<Bill> getAllBills() {
+    return billRepository.findAll();
   }
 
   public Bill createBill(Bill bill) {

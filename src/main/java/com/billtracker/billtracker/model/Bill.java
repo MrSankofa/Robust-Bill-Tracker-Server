@@ -14,7 +14,6 @@ public class Bill {
   @Id
   private String id;
 
-  private String userId;
   private String name;
   private double amount;
   private int dueDate;
