@@ -2,6 +2,7 @@ package com.billtracker.billtracker.auth;
 
 import com.billtracker.billtracker.model.User;
 import com.billtracker.billtracker.repository.UserRepository;
+import com.billtracker.billtracker.security.CustomUserDetails;
 import com.billtracker.billtracker.security.JwtService;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,10 +37,11 @@ public class AuthService {
     User user = userRepository.findByUsername(request.getUsername())
         .orElseThrow(() -> new UsernameNotFoundException(request.getUsername()));
 
-    if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+    if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
       throw new BadCredentialsException("Invalid password");
     }
 
-    return jwtService.generateToken(user);
+    CustomUserDetails userDetails = new CustomUserDetails(user);
+    return jwtService.generateToken(userDetails);
   }
 }
